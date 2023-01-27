@@ -37,6 +37,7 @@ function init () {
     scene.add( directionalLight )
 
     // load the model
+    // this is 3dm loader
     const loader = new Rhino3dmLoader()
     loader.setLibraryPath( 'https://cdn.jsdelivr.net/npm/rhino3dm@7.11.1/' )
 

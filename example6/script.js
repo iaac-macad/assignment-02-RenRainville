@@ -16,7 +16,7 @@ function init() {
 
     // create a scene and a camera
     scene = new THREE.Scene()
-    scene.background = new THREE.Color(1,1,1)
+    scene.background = new THREE.Color(0.8,0.8,0.8)
     camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 )
     camera.position.y = - 100
 
@@ -30,16 +30,14 @@ function init() {
     const directionalLight = new THREE.DirectionalLight( 0xffffff )
     directionalLight.position.set( 0, 0, 2 )
     directionalLight.castShadow = true
-    directionalLight.intensity = 2
+    directionalLight.intensity = 0.85
     scene.add( directionalLight )
 
     const directionalLight2 = new THREE.DirectionalLight( 0xffffff )
     directionalLight2.position.set( 0, 0, -2 )
     directionalLight2.castShadow = true
-    directionalLight2.intensity = 2
+    directionalLight2.intensity = 0.85
     scene.add( directionalLight2 )
-
-    selectedMaterial = new THREE.MeshStandardMaterial( {color: 'yellow'} )
 
     raycaster = new THREE.Raycaster()
 
@@ -52,7 +50,7 @@ function init() {
         // store material information
         object.traverse( (child) => {
             if (child.userData.hasOwnProperty('objectType')) {
-                if (child.userData.objectType === 'Brep') {
+                if (child.userData.objectType === 'Mesh') {
                     child.traverse( (c) => {
                         if (c === child) return
                         c.userData.material = c.material
@@ -82,6 +80,8 @@ function onClick( event ) {
 	mouse.x = ( event.clientX / window.innerWidth ) * 2 - 1
     mouse.y = - ( event.clientY / window.innerHeight ) * 2 + 1
     
+    selectedMaterial = new THREE.MeshStandardMaterial( {color: 'pink'} ) 
+
     raycaster.setFromCamera( mouse, camera )
 
 	// calculate objects intersecting the picking ray
@@ -104,7 +104,7 @@ function onClick( event ) {
         console.log(object) // debug
 
         object.traverse( (child) => {
-            if (child.parent.userData.objectType === 'Brep') {
+            if (child.parent.userData.objectType === 'Mesh') {
                 child.parent.traverse( (c) => {
                     if (c.userData.hasOwnProperty( 'material' )) {
                         c.material = selectedMaterial

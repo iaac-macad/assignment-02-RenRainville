@@ -28,7 +28,7 @@ function init() {
 
     const controls = new OrbitControls( camera, renderer.domElement )
 
-    const light = new THREE.AmbientLight( 0x404040 ); // soft white light
+    const light = new THREE.AmbientLight( 0xE33BD9 ); // soft white light
     scene.add( light );
 
     const directionalLight = new THREE.DirectionalLight( 0xffffff )
